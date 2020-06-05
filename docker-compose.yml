@@ -1,0 +1,66 @@
+version: "3.8"
+services:
+    user-service-db:
+        container_name: user-service-db
+        env_file: ./envs/user.env
+        image: mysql:5.6
+        ports:
+            - 3306:3306
+        logging:
+            driver: none
+        volumes:
+            - ./user-service-db-scripts:/docker-entrypoint-initdb.d            
+
+    user-service:
+        container_name: user-service
+        env_file: ./envs/user.env
+        build:
+            context: "./user-service/"
+        depends_on:
+            - user-service-db
+        volumes:
+            - /app/node_modules
+            - /app/build
+            - ./user-service:/app
+            
+
+    content-service-db:
+        container_name: content-service-db
+        env_file: ./envs/content.env
+        environment:
+            - MYSQL_ROOT_PASSWORD=secret
+            - MYSQL_DATABASE=content_db
+        image: mysql:5.6
+        ports:
+            - 3307:3306
+        logging:
+            driver: none
+        volumes:
+            - ./content-service-db-scripts:/docker-entrypoint-initdb.d            
+
+    content-service:
+        container_name: content-service
+        env_file: ./envs/content.env
+        build:
+            context: "./content-service/"
+        depends_on:
+            - content-service-db
+        volumes:
+            - /app/node_modules
+            - /app/build
+            - ./content-service:/app
+
+    nginx:
+        build:
+            context: "./frontend/"
+        container_name: nginx
+        ports: 
+            - "80:80"
+        depends_on: 
+            - user-service
+            - content-service
+        volumes: 
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+        #logging:
+        #    driver: none
+    

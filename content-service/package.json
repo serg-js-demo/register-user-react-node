@@ -1,0 +1,63 @@
+{
+  "name": "content-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "build": "rm -rf build && tsc",
+    "dev": "ts-node-dev --respawn --transpileOnly ./app/index.ts",
+    "prod": "tsc && node ./build/index.js",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/supertest": "^2.0.9",
+    "async": "3.1.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.21.1",
+    "mysql": "^2.18.1",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "uuid": "^8.1.0"
+  },
+  "devDependencies": {
+    "@types/async": "3.0.1",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/body-parser": "^1.19.0",
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.6",
+    "@types/jest": "^25.2.3",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/knex": "^0.16.1",
+    "@types/node": "^14.0.10",
+    "@types/uuid": "^8.0.0",
+    "jest": "^26.0.1",
+    "supertest": "^4.0.2",
+    "ts-jest": "^26.1.0",
+    "tsc-watch": "^4.2.8",
+    "typescript": "^3.9.5"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/?(*.)+(spec|test).ts"
+    ]
+  }
+}
