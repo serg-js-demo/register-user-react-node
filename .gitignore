@@ -1,0 +1,6 @@
+node_modules
+user-service/build/
+content-service/build/
+.DS_Store
+
+
